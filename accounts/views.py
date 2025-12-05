@@ -106,3 +106,30 @@ class UpgradeAPIView(APIView):
         request.user.is_paid = True
         request.user.save()
         return Response({"message": "Payment successful — you are now a paid user!"})
+
+
+
+
+# Example: Admin-only user list endpoint
+
+# Let’s add another view where only Admin can list all users.
+
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsAdmin
+from django.contrib.auth import get_user_model
+from rest_framework import serializers
+
+User = get_user_model()
+
+
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "is_staff", "is_paid"]
+
+
+class AdminUserListAPIView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserListSerializer
+    permission_classes = [IsAuthenticated, IsAdmin]

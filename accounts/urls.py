@@ -6,7 +6,8 @@ from .views import (
     VerifyTokenAPIView,
     LogoutAPIView,
     ProfileAPIView,
-    UpgradeAPIView
+    UpgradeAPIView,
+    AdminUserListAPIView
 )
 
 urlpatterns = [
@@ -18,4 +19,7 @@ urlpatterns = [
     path("jwt/logout/", LogoutAPIView.as_view()),
     path("profile/", ProfileAPIView.as_view()),
     path("upgrade/", UpgradeAPIView.as_view()),
+
+    #Part 3
+    path("users/", AdminUserListAPIView.as_view())
 ]
