@@ -41,12 +41,16 @@ class TodoListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated, IsAdminOrPaidUser]
 
     ##2nd search For Filtering 
-    search_fields = ["title"]  # 🔥 allow search by title
-    filter_backends = [filters.SearchFilter]  # enable search only
+    # search_fields = ["title"]  # 🔥 allow search by title
+    # filter_backends = [filters.SearchFilter]  # enable search only
 
-    # 3rd part fitering
-    filter_backends = [DjangoFilterBackend]     # 🔥 enable filtering
-    filterset_fields = ["completed"]           # 🔥 filter field
+    # # 3rd part fitering
+    # filter_backends = [DjangoFilterBackend]     # 🔥 enable filtering
+    # filterset_fields = ["completed"]           # 🔥 filter field
+
+    ## 4th ordering 
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ["created_at", "title"]   # fields allowed for sorting
 
     def get_queryset(self):
         user = self.request.user

@@ -129,7 +129,7 @@ REST_FRAMEWORK = {
 
     #Pagination
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5,   # show 5 results per page
+    'PAGE_SIZE': 10,   # show 5 results per page
 
     #search
      'DEFAULT_FILTER_BACKENDS': [
