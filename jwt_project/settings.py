@@ -135,4 +135,14 @@ REST_FRAMEWORK = {
      'DEFAULT_FILTER_BACKENDS': [
         'rest_framework.filters.SearchFilter',
     ],
+
+    #Filter
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+
+    ##Ordering
+      "DEFAULT_FILTER_BACKENDS": [
+        "rest_framework.filters.OrderingFilter",
+    ]
 }

@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, filters
 from rest_framework.permissions import IsAuthenticated
 from .models import Todo
 from .serializers import TodoSerializer
@@ -34,10 +34,19 @@ from .models import Todo
 from .serializers import TodoSerializer
 from accounts.permissions import IsAdminOrPaidUser
 
+from django_filters.rest_framework import DjangoFilterBackend #FOR filtered part
 
 class TodoListCreateView(generics.ListCreateAPIView):
     serializer_class = TodoSerializer
     permission_classes = [IsAuthenticated, IsAdminOrPaidUser]
+
+    ##2nd search For Filtering 
+    search_fields = ["title"]  # 🔥 allow search by title
+    filter_backends = [filters.SearchFilter]  # enable search only
+
+    # 3rd part fitering
+    filter_backends = [DjangoFilterBackend]     # 🔥 enable filtering
+    filterset_fields = ["completed"]           # 🔥 filter field
 
     def get_queryset(self):
         user = self.request.user

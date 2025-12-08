@@ -132,4 +132,4 @@ class UserListSerializer(serializers.ModelSerializer):
 class AdminUserListAPIView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserListSerializer
-    permission_classes = [IsAuthenticated, IsAdmin]
+    permission_classes = [IsAuthenticated]
