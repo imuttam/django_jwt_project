@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'django_filters',
     'accounts',
     'todos',
+    'depl',
+    'reports',
 
 ]
 
@@ -122,27 +124,57 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # INCLUDE PAGINATION
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#         # 'rest_framework.authentication.SessionAuthentication',
+#     ),
+
+#     #Pagination
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 5,   # show 5 results per page
+
+#     #search
+#      'DEFAULT_FILTER_BACKENDS': [
+#         'rest_framework.filters.SearchFilter',
+#     ],
+
+#     #Filter
+#     'DEFAULT_FILTER_BACKENDS': [
+#         'django_filters.rest_framework.DjangoFilterBackend'
+#     ],
+
+#     ##Ordering
+#       "DEFAULT_FILTER_BACKENDS": [
+#         "rest_framework.filters.OrderingFilter",
+#     ]
+# }
+
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
 
-    #Pagination
+    # Pagination
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,   # show 5 results per page
+    'PAGE_SIZE': 5,
 
-    #search
-     'DEFAULT_FILTER_BACKENDS': [
-        'rest_framework.filters.SearchFilter',
-    ],
-
-    #Filter
+    # Filter / Search / Ordering backends (combined)
     'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
     ],
+}
 
-    ##Ordering
-      "DEFAULT_FILTER_BACKENDS": [
-        "rest_framework.filters.OrderingFilter",
-    ]
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),   # 1 hour
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),      # 7 days
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
 }
